@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+  dev:
+    build: .
+    depends_on:
+      - db
+    expose:
+      - 8443
+    ports:
+      - 8443:8443
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dan
+      SPRING_FLYWAY_URL: jdbc:postgresql://db:5432/dan
+    volumes:
+      - .:/app
+      - ivy-cache:/root/.ivy2
+      - docker-gradle-cache:/root/.gradle
+
+  db:
+    image: postgres:9.6.16-alpine
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      # psql -h localhost -U dan -d dan
+      POSTGRES_USER: dan
+      POSTGRES_PASSWORD: dan
+      POSTGRES_DB: dan
+
+volumes:
+  ivy-cache:
+    external: true
+  docker-gradle-cache:
+    external: true

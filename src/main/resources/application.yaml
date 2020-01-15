@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/dan"
+    driver-class-name: "org.postgresql.Driver"
+    username: dan
+    password: dan
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    url: "jdbc:postgresql://localhost:5432/dan"
+    user: dan
+    password: dan
+    table: dan_migrations
+
+server:
+  port: 8443
+  http:
+    port: 8080
+  ssl:
+    key-store-type: PKCS12
+    key-store: "classpath:keystore/dan.p12"
+    key-store-password: password
+    key-alias: dan
+    enabled: true
